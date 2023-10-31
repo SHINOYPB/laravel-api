@@ -16,7 +16,7 @@ class AuthController extends Controller
     /**
      * @OA\Post(
      *     path="/api/register",
-     *     tags={"Register"},
+     *     tags={"Authentication"},
      *     summary="Register The User",
      *     description="Multiple status values can be provided with comma separated string",
      *     operationId="postRegister",
@@ -50,6 +50,33 @@ class AuthController extends Controller
         ]);
     }
 
+     /**
+     * @OA\Post(
+     *     path="/api/login",
+     *     tags={"Authentication"},
+     *     summary="Login for user",
+     *     description="Login api for users",
+     *     operationId="postLogin",
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(
+     *                 required={"email","password"},
+     *                 @OA\Property(property="email", type="string"),
+     *                 @OA\Property(property="password", type="string")
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful operation"
+     *     ),
+     *     @OA\Response(
+     *         response=400,
+     *         description="Invalid status value"
+     *     )
+     * )
+     */
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only("email", "password"))) {
